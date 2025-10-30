@@ -4,27 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-
-interface Car {
-  id: string;
-  brand: string;
-  model: string;
-  price: number;
-  image: string;
-}
-
-interface Branch {
-  id: string;
-  name: string;
-  address: string;
-  coords: { x: number; y: number };
-  cars: Car[];
-}
+import Footer from '@/components/Footer';
 
 const Branches = () => {
-  const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
+  const [selectedBranch, setSelectedBranch] = useState(null);
 
-  const branches: Branch[] = [
+  const branches = [
     {
       id: '1',
       name: 'Центральный',
@@ -173,7 +158,7 @@ const Branches = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Наши филиалы</h1>
@@ -257,29 +242,27 @@ const Branches = () => {
                             className="w-20 h-16 object-cover rounded"
                           />
                           <div className="flex-1">
-                            <p className="font-medium">
+                            <h4 className="font-medium">
                               {car.brand} {car.model}
-                            </p>
-                            <Badge variant="secondary">{car.price} ₽/день</Badge>
+                            </h4>
+                            <p className="text-sm text-muted-foreground">{car.id}</p>
                           </div>
-                          <Button size="sm" asChild>
-                            <Link to="/booking">Забронировать</Link>
-                          </Button>
+                          <Badge variant="outline">{car.price.toLocaleString()} ₽/день</Badge>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-12 text-muted-foreground">
-                  <Icon name="MousePointer" size={48} className="mx-auto mb-4 opacity-50" />
-                  <p>Нажмите на маркер филиала на карте</p>
-                </div>
+                <p className="text-muted-foreground text-center py-8">
+                  Выберите филиал на карте, чтобы увидеть доступные автомобили
+                </p>
               )}
             </CardContent>
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

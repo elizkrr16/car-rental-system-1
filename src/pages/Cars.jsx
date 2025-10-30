@@ -3,26 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-
-interface Car {
-  id: string;
-  brand: string;
-  model: string;
-  color: string;
-  engineType: string;
-  transmission: string;
-  price: number;
-  image: string;
-}
+import Footer from '@/components/Footer';
 
 const Cars = () => {
-  const [selectedBrand, setSelectedBrand] = useState<string>('all');
-  const [selectedModel, setSelectedModel] = useState<string>('all');
-  const [selectedColor, setSelectedColor] = useState<string>('all');
+  const [selectedBrand, setSelectedBrand] = useState('all');
+  const [selectedModel, setSelectedModel] = useState('all');
+  const [selectedColor, setSelectedColor] = useState('all');
 
-  const cars: Car[] = [
+  const cars = [
     {
       id: 'CAR1',
       brand: 'Mercedes-Benz',
@@ -97,8 +86,8 @@ const Cars = () => {
   const colors = Array.from(new Set(cars.map((car) => car.color)));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex flex-col">
+      <div className="container mx-auto px-4 py-8 flex-1">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Выбор автомобиля</h1>
           <Button variant="outline" asChild>
@@ -230,12 +219,13 @@ const Cars = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <Button asChild>
                     <Link to="/booking">
-                      <Icon name="Check" size={16} className="mr-2" />
-                      Выбрать
+                      <Icon name="Calendar" size={16} className="mr-2" />
+                      Забронировать
                     </Link>
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link to="/">Отмена</Link>
+                  <Button variant="outline">
+                    <Icon name="Info" size={16} className="mr-2" />
+                    Подробнее
                   </Button>
                 </div>
               </CardContent>
@@ -244,14 +234,25 @@ const Cars = () => {
         </div>
 
         {filteredCars.length === 0 && (
-          <div className="text-center py-12">
-            <Icon name="Search" size={48} className="mx-auto mb-4 text-muted-foreground" />
-            <p className="text-muted-foreground">
-              Автомобили не найдены. Попробуйте изменить фильтры.
-            </p>
-          </div>
+          <Card className="text-center py-12">
+            <CardContent>
+              <Icon name="SearchX" size={48} className="mx-auto mb-4 text-muted-foreground" />
+              <p className="text-lg font-medium mb-2">Автомобили не найдены</p>
+              <p className="text-muted-foreground mb-4">Попробуйте изменить фильтры</p>
+              <Button
+                onClick={() => {
+                  setSelectedBrand('all');
+                  setSelectedModel('all');
+                  setSelectedColor('all');
+                }}
+              >
+                Сбросить фильтры
+              </Button>
+            </CardContent>
+          </Card>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

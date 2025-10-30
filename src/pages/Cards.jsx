@@ -7,17 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-
-interface BankCard {
-  id: string;
-  number: string;
-  holder: string;
-  expiry: string;
-  cvv: string;
-}
+import Footer from '@/components/Footer';
 
 const Cards = () => {
-  const [cards, setCards] = useState<BankCard[]>([
+  const [cards, setCards] = useState([
     {
       id: '1',
       number: '1111222233334444',
@@ -34,7 +27,7 @@ const Cards = () => {
     cvv: '',
   });
 
-  const getCardType = (number: string) => {
+  const getCardType = (number) => {
     const firstFour = number.substring(0, 4);
     if (firstFour === '1111') return 'Visa';
     if (firstFour === '2222') return 'MasterCard';
@@ -42,19 +35,19 @@ const Cards = () => {
     return 'Unknown';
   };
 
-  const isCardActive = (expiry: string) => {
+  const isCardActive = (expiry) => {
     const [month, year] = expiry.split('/');
     const expiryDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
     return expiryDate > new Date();
   };
 
-  const formatCardNumber = (value: string) => {
+  const formatCardNumber = (value) => {
     const numbers = value.replace(/\s/g, '');
     const groups = numbers.match(/.{1,4}/g);
     return groups ? groups.join(' ') : '';
   };
 
-  const handleAddCard = (e: React.FormEvent) => {
+  const handleAddCard = (e) => {
     e.preventDefault();
     setCards([
       ...cards,
@@ -67,12 +60,12 @@ const Cards = () => {
     setIsDialogOpen(false);
   };
 
-  const handleDeleteCard = (id: string) => {
+  const handleDeleteCard = (id) => {
     setCards(cards.filter((card) => card.id !== id));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Банковские карты</h1>
@@ -201,6 +194,7 @@ const Cards = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -3,27 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-
-interface Order {
-  orderId: string;
-  brand: string;
-  model: string;
-  image: string;
-  startDate: string;
-  endDate: string;
-  days: number;
-  branch: string;
-  totalPrice: number;
-}
-
-interface BookingHistory {
-  bookingCode: string;
-  pricePerDay: number;
-  orders: Order[];
-}
+import Footer from '@/components/Footer';
 
 const History = () => {
-  const bookings: BookingHistory[] = [
+  const bookings = [
     {
       bookingCode: 'BK001',
       pricePerDay: 5000,
@@ -55,7 +38,7 @@ const History = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">История бронирований</h1>
@@ -158,6 +141,7 @@ const History = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

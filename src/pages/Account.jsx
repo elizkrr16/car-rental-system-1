@@ -4,29 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-
-interface UserData {
-  lastName: string;
-  firstName: string;
-  middleName: string;
-  passportSeries: string;
-  passportNumber: string;
-  phone: string;
-  birthDate: string;
-}
-
-interface Booking {
-  id: string;
-  carId: string;
-  brand: string;
-  bookingDate: string;
-  branch: string;
-}
+import Footer from '@/components/Footer';
 
 const Account = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [bookings] = useState<Booking[]>([
+  const [userData, setUserData] = useState(null);
+  const [bookings] = useState([
     {
       id: 'BK001',
       carId: 'CAR123',
@@ -57,7 +40,7 @@ const Account = () => {
   if (!userData) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Личный кабинет</h1>
@@ -179,6 +162,7 @@ const Account = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

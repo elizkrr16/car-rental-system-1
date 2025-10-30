@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Icon from '@/components/ui/icon';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   const [searchClass, setSearchClass] = useState('');
@@ -39,7 +40,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex flex-col">
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -122,7 +123,7 @@ const Index = () => {
       <section className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold">Доверьтесь профессионалам</h2>
+            <h2 className="text-4xl md:text-5xl font-bold">Аренда автомобилей</h2>
             <p className="text-xl opacity-90">
               Более 500 довольных клиентов выбрали нас. Широкий выбор автомобилей и прозрачные условия аренды.
             </p>
@@ -177,55 +178,47 @@ const Index = () => {
                     <SelectContent>
                       <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
                       <SelectItem value="bmw">BMW</SelectItem>
+                      <SelectItem value="audi">Audi</SelectItem>
                       <SelectItem value="toyota">Toyota</SelectItem>
-                      <SelectItem value="hyundai">Hyundai</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Модель</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Выберите модель" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="model1">C-Class</SelectItem>
-                      <SelectItem value="model2">3 Series</SelectItem>
-                      <SelectItem value="model3">Camry</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex items-end">
+                  <Button asChild className="w-full">
+                    <Link to="/cars">
+                      <Icon name="Search" size={18} className="mr-2" />
+                      Найти автомобиль
+                    </Link>
+                  </Button>
                 </div>
               </div>
-              <Button asChild className="w-full mt-6" size="lg">
-                <Link to="/cars">
-                  <Icon name="Search" size={20} className="mr-2" />
-                  Найти автомобили
-                </Link>
-              </Button>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      <section className="py-16 bg-white/50">
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Новости и акции</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Новости отрасли</h2>
+            <p className="text-muted-foreground">Следите за актуальными событиями в мире автопроката</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {news.map((item) => (
-              <Card key={item.id} className="animate-fade-in hover-scale overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                />
+              <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <CardHeader>
-                  <CardTitle className="text-base line-clamp-2">{item.title}</CardTitle>
-                  <CardDescription className="line-clamp-3 text-sm">{item.description}</CardDescription>
+                  <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" className="w-full">
-                    Подробнее
-                  </Button>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -233,43 +226,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>Индекс Драйв</h3>
-              <p className="opacity-90">Надежный сервис аренды автомобилей</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Контакты</h4>
-              <p className="flex items-center gap-2 opacity-90">
-                <Icon name="Phone" size={18} />
-                8 (800) 555-35-35
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Полезные ссылки</h4>
-              <nav className="space-y-2">
-                <a href="http://audi.ru/" target="_blank" rel="noopener noreferrer" className="block opacity-90 hover:opacity-100 transition-opacity">
-                  Audi - официальный сайт
-                </a>
-                <a href="http://bmw.ru/" target="_blank" rel="noopener noreferrer" className="block opacity-90 hover:opacity-100 transition-opacity">
-                  BMW - официальный сайт
-                </a>
-                <a href="http://mazda.ru/" target="_blank" rel="noopener noreferrer" className="block opacity-90 hover:opacity-100 transition-opacity">
-                  Mazda - официальный сайт
-                </a>
-                <a href="http://honda.ru/" target="_blank" rel="noopener noreferrer" className="block opacity-90 hover:opacity-100 transition-opacity">
-                  Honda - официальный сайт
-                </a>
-              </nav>
-            </div>
-          </div>
-          <div className="border-t border-white/20 mt-8 pt-8 text-center opacity-90">
-            <p>&copy; 2024 Индекс Драйв. Все права защищены.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
